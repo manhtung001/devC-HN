@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Week 1 - devC - HN - Khong Manh Tung
+    </title>
+</head>
+
+<body>
+    <div>Guess number from 1 to 10 and you have 5 turns: </div>
+    <div id="message"></div>
+    <input type="number" id="number">
+    <div type="number" id="last"></div>
+    <button id="guessButton">Guess</button>
+    <script>
+        let button = document.getElementById('guessButton');
+        let random = Math.floor(Math.random() * 10) + 1;
+        let count = 5;
+        let lastNum = 0;
+        button.addEventListener('click', function () {
+            let userGuess = document.getElementById('number').value * 1;
+            lastNum = userGuess;
+            count--;
+            let mess = "you can't guess because you used all turns you have";
+            if (count < 1) {
+                document.getElementById('message').innerHTML = mess;
+                document.getElementById("message").style.backgroundColor = 'orange';
+                document.getElementById("guessButton").style.display = 'none';
+                setTimeout(function(){ location.reload(); }, 2000);
+                document.getElementById('last').innerHTML = null;
+                return 0;
+            } else {
+                if (userGuess === random) {
+                    document.getElementById('message').innerHTML = "Congratulations!! You guessed correctly.";
+                    document.getElementById("message").style.backgroundColor = 'green';
+                    document.getElementById("guessButton").style.display = 'none';
+                    setTimeout(function(){ location.reload(); }, 2000);
+                    document.getElementById('last').innerHTML = null;
+                    return 0;
+                }
+                else if (userGuess > random) { mess = "Sorry your guess is too high" }
+                else { mess = "Sorry your guess is too low" }
+                document.getElementById('message').innerHTML = `${mess} and you have ${count} guesses left`;
+                document.getElementById('last').innerHTML = `Number you guessed is ${lastNum}`;
+                document.getElementById("message").style.backgroundColor = 'red';
+            }
+        });
+    </script>
+</body>
+
+</html>
